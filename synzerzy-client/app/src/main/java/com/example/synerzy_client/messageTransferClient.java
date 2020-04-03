@@ -62,6 +62,7 @@ class fileReceiveClient extends AsyncTask<Void, Void,Void> {
     String fileName = " ";
     Activity activity;
     static byteClass globalObj;
+    static int actualLength;
     fileReceiveClient(String ipAddress , int portNum,String fileName,Activity acc){
         this.ipAddress = ipAddress ;
         this.portNum = portNum;
@@ -70,6 +71,7 @@ class fileReceiveClient extends AsyncTask<Void, Void,Void> {
     }
     @Override
     protected Void doInBackground(Void... voids) {
+
         globalObj = byteClass.getFile(ipAddress,portNum,fileName);
         return null;
     }

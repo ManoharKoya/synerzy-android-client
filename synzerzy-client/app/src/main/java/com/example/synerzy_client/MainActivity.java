@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     EditText portEditText;
     TextView messageView;
     Button saveButton;
-
+    String fileName = "songReceived.mp3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //                    saveButton.setEnabled(false);
                 }
                 else {
-                    myExternalFile = new File(getExternalFilesDir("f"),"sample.mp3");
+                    myExternalFile = new File(getExternalFilesDir("f"),fileName);
                 }
                 try {
                     FileOutputStream fos = new FileOutputStream(myExternalFile);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                messageView.setText("sample.txt is saved ");
+                messageView.setText("song is saved");
             }
         });
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void recieveFile(View v){
 
         int portnum = 13232;
-        fileReceiveClient frc = new fileReceiveClient(ipEditText.getText().toString(),portnum,"syn.mp3",this);
+        fileReceiveClient frc = new fileReceiveClient(ipEditText.getText().toString(),portnum,fileName,this);
         frc.execute();
     }
 

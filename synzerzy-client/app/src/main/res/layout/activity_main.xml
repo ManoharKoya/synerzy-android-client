@@ -22,6 +22,14 @@
         android:hint="ip address"
         android:text="127.0.0.1"
         />
+    <EditText
+        android:id="@+id/fileNameEditText"
+        android:layout_width="424dp"
+        android:layout_height="131dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="enter file name here"
+        />
 
 
 

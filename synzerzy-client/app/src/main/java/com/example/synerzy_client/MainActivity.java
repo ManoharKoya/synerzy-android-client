@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     EditText ipEditText;
     TextView messageView;
     String fileName = "songReceived.mp3";
+    EditText fileNameEditText;
     Button sendInfoButton , receiveResponseButton , receiveFileButton , saveFileButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         messageView = findViewById(R.id.messageView);
         ipEditText = findViewById(R.id.ipEditText);
+        fileNameEditText = findViewById(R.id.fileNameEditText);
 
 
         sendInfoButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void saveFile(View v){
-            myExternalFile = new File(getExternalFilesDir("f"),fileName);
+            myExternalFile = new File(getExternalFilesDir("f"),fileNameEditText.getText().toString());
         try {
             FileOutputStream fos = new FileOutputStream(myExternalFile);
             fos.write(fileReceiveClient.globalObj.byteArray,0,fileReceiveClient.globalObj.actualLength);
@@ -97,9 +99,10 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
     public void sendText(View v){
+        fileName = fileNameEditText.getText().toString();
         Toast.makeText(this , "the file info is sent",Toast.LENGTH_LONG).show();
         messageView.setText("file info is sent.. waiting for response");
-        messageSendClient msc = new messageSendClient(ipEditText.getText().toString(),13222,"songToSend.mp3",this);
+        messageSendClient msc = new messageSendClient(ipEditText.getText().toString(),13222,fileName,this);
         msc.execute();
     }
     public void receiveText(View v){
@@ -107,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         messageView.setText("waiting for response from server");
         messageReceiveClient mrc = new messageReceiveClient(ipEditText.getText().toString(),13223,this);
         mrc.execute();
-
     }
     public void recieveFile(View v){
         int portnum = 13232;
@@ -115,6 +117,4 @@ public class MainActivity extends AppCompatActivity {
         fileReceiveClient frc = new fileReceiveClient(ipEditText.getText().toString(),portnum,fileName,this);
         frc.execute();
     }
-
-
 }

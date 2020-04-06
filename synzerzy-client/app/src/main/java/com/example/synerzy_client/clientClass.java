@@ -113,9 +113,6 @@ class byteClass{
         try{
             byteReceived = getByteClass(ipAddress, portnum);
             System.out.println("syn: file received");
-//            byteClass.createFile(byteReceived, "fyn.mp3");
-
-            System.out.println("syn: file created");
         }catch(Exception e){
             e.printStackTrace();
         }

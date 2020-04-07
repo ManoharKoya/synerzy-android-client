@@ -20,22 +20,31 @@ class byteClass{
         actualLength = ActualLength;
     }
     public static void sendMessageClient(String ipAddress ,int socketPort,String message){
-        byteClass messageByte = byteClass.getByteFromString(message);
-        try{
-            Socket sock = new Socket(ipAddress , socketPort);
-            byteClass.sendByte(sock, messageByte);
-            System.out.println("the message is sent");
-            sock.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        int c= 0;
+        while(c==0) {
+            byteClass messageByte = byteClass.getByteFromString(message);
+            try {
+                Socket sock = new Socket(ipAddress, socketPort);
+                byteClass.sendByte(sock, messageByte);
+                System.out.println("the message is sent");
+                sock.close();
+                c =1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-    public static String getMessageClient( String ipAddress , int socket_port){
-        try{
-            byteClass receivedByte = byteClass.getByteClass(ipAddress,socket_port);
-            return getStringFrombyteClass(receivedByte);
-        }catch(Exception e){
-            e.printStackTrace();
+    public static String getMessageClient( String ipAddress , int socket_port) {
+        int c = 0;
+        while (c == 0) {
+            try {
+                byteClass receivedByte = byteClass.getByteClass(ipAddress, socket_port);
+                c =1;
+                return getStringFrombyteClass(receivedByte);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "error";
         }
         return "error";
     }
@@ -109,12 +118,16 @@ class byteClass{
 
     }
     public static byteClass getFile(String ipAddress , int portnum,String fileName){
-        byteClass byteReceived  =new byteClass(new byte[10] , 10);
-        try{
-            byteReceived = getByteClass(ipAddress, portnum);
-            System.out.println("syn: file received");
-        }catch(Exception e){
-            e.printStackTrace();
+        int c = 0;
+        byteClass byteReceived = new byteClass(new byte[10], 10);
+        while(c==0) {
+            try {
+                byteReceived = getByteClass(ipAddress, portnum);
+                System.out.println("syn: file received");
+                c=1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return byteReceived;
     }

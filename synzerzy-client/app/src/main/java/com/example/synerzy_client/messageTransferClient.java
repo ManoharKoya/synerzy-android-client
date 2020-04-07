@@ -37,19 +37,8 @@ class clientParams extends AsyncTask<Void, Integer, Void>{
     protected Void doInBackground(Void... voids) {
         byteClass.sendMessageClient(ipAddress,portNum,fileId);
         publishProgress(10);
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            System.out.println("syn: eroor while sleeping ");
-        }
-        publishProgress(20);
         responseToReceive = byteClass.getMessageClient(ipAddress,portNum+1);
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            System.out.println("syn: eroor while sleeping ");
-        }
-        publishProgress(40);
+        publishProgress(20);
         byteObjReceived = byteClass.getFile(ipAddress,Integer.parseInt(responseToReceive),fileId);
         publishProgress(80);
         saveFileFromByte();
